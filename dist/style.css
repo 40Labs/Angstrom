@@ -21,3 +21,5 @@
 .primary{border-radius:4px}.icon-button{border-radius:4px}
 @media(max-width:760px){.brand-emblem{width:42px;height:38px}.labs-wordmark{width:65px;height:24px}.footer-actions{gap:10px}.clock-panel::before{right:5%}.clock-panel::after{right:calc(5% + 8px)}}
 @media(max-width:390px){.labs-wordmark{display:none}}
+
+.weather-source{display:flex;gap:7px;align-items:center;justify-content:space-between;font-size:8px;color:var(--muted);margin-top:13px;min-height:24px}.weather-source a{color:var(--muted);text-decoration:none}.weather-source a:hover{color:var(--accent)}.weather-source button{padding:7px 0 7px 6px;font-size:9px;color:var(--accent);min-height:30px}.weather-source button:disabled{opacity:.4;cursor:wait}#weather-status[data-state="warning"]{color:var(--accent);border-color:#e9a51a55}.forecast:empty{display:none}

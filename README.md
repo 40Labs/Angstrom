@@ -9,7 +9,7 @@ From this folder, run `python3 -m http.server 8080 --directory dist`, then open 
 ## Working now
 
 - Live device-local clock, date, and timezone; 12/24-hour preferences.
-- Weather layout with Fahrenheit/Celsius preferences, using **sample data**.
+- Live Open-Meteo weather for Vestal, NY 13850, with Fahrenheit/Celsius preferences, automatic 15-minute refresh, manual refresh, timestamps, and cached/offline states.
 - Calendar layout with day navigation and event details, using **sample data**.
 - Night-mode visual dimming with configurable brightness.
 - Fullscreen control where the browser permits it.
@@ -17,7 +17,7 @@ From this folder, run `python3 -m http.server 8080 --directory dist`, then open 
 
 ## Integration boundaries
 
-Weather and calendar are not connected to providers. Weather values and hourly labels are fixed demonstration data, not a live forecast. Calendar samples are positioned relative to the current day and do not represent real appointments. The clock uses the browser's local timezone.
+Weather is fetched directly from the public Open-Meteo API using city-center coordinates 42.08507, -76.05381 (verified by Open-Meteo geocoding for Vestal, NY, ZIP 13850). Requests use Eastern time, Fahrenheit internally, Unix timestamps, no account credentials, and no browser geolocation. Weather data is model-derived. The source attribution links to Open-Meteo. Data older than one hour is marked stale; cache older than 24 hours is discarded. Google Calendar is not yet connected to the display. Calendar samples are positioned relative to the current day and do not represent real appointments. The clock uses the browser's local timezone.
 
 Before live integration, replace the sample render sources in `dist/app.js` with a provider layer backed by a shared Angstrom service. Keep account tokens in that service, not in browser source. Include provider timestamps, offline/stale states, and source timezone handling. A voice adapter can later call the same service; no microphone access is requested by this version.
 
@@ -27,6 +27,7 @@ Night mode dims rendered content only; physical backlight/power control requires
 
 - `dist/index.html` — accessible display structure and dialogs
 - `dist/style.css` — responsive bedside design
+- `dist/weather.js` — public weather adapter and cache
 - `dist/app.js` — display state, preferences, clock, and sample adapters
 - `.openai/hosting.json` — private Sites preview configuration
 
