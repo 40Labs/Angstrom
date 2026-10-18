@@ -31,4 +31,18 @@ Night mode dims rendered content only; physical backlight/power control requires
 - `dist/app.js` — display state, preferences, clock, and sample adapters
 - `.openai/hosting.json` — private Sites preview configuration
 
-The source can be placed in a GitHub repository later. This project does not yet configure a GitHub remote.
+## GitHub and Raspberry Pi updates
+
+The intended GitHub repository is `https://github.com/40Labs/Angstrom`. The authoring checkout uses a separate remote named `github` so Sites publishing can continue independently. GitHub source publication requires repository access; configuring a remote alone does not upload files.
+
+After the initial source push, clone onto a Pi with GitHub access:
+
+```bash
+git clone https://github.com/40Labs/Angstrom.git ~/angstrom
+cd ~/angstrom
+python3 -m http.server 8080 --bind 127.0.0.1 --directory dist
+```
+
+Open `http://127.0.0.1:8080` in Chromium on the Pi. Pull subsequent source updates using `git -C ~/angstrom pull --ff-only`, then refresh Chromium. Keep the Pi checkout free of source edits to avoid update conflicts. The authoring checkout pushes updates with `git push github HEAD:main` once the repository's branch has been confirmed.
+
+Do not commit Google tokens, passwords, `.env` files, or runtime data. GitHub distributes code; future live node state and calendar synchronization belong to the Angstrom backend.

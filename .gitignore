@@ -1,0 +1,16 @@
+# Local configuration, credentials, and runtime state
+.env
+.env.*
+!.env.example
+credentials*.json
+client_secret*.json
+token.json
+tokens.json
+.sites-runtime/
+node_modules/
+__pycache__/
+*.pyc
+*.log
+.DS_Store
+runtime/
+data/
