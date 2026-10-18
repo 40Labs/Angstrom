@@ -237,3 +237,4 @@ data/
 
 # Generated static hosting artifact
 /dist/
+/work/

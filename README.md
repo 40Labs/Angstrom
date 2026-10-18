@@ -31,7 +31,8 @@ Open http://127.0.0.1:8080 in your browser. No frontend dependencies or build ar
 ## Current functionality
 
 - Live device-local clock and date, defaulting to AM/PM and Fahrenheit.
-- Live Open-Meteo weather for Vestal, NY 13850; hourly forecast, highs/lows, feels-like temperature, 15-minute refresh, and stale/cache states.
+- Live Open-Meteo weather for Vestal, NY 13850; sunrise/sunset, hourly forecast, highs/lows, feels-like temperature, 15-minute refresh, and stale/cache states.
+- Click or tap the weather section for current metrics, daylight duration, the next 12 hours, and a five-day outlook. Return with Back to bedside or Escape.
 - Sample calendar layout with day navigation and event details.
 - Night-mode visual dimming, fullscreen control, responsive layout, and saved local preferences.
 
@@ -54,3 +55,15 @@ Repository: https://github.com/40Labs/Angstrom
 The authoring checkout uses `upstream` for 40Labs/Angstrom and `origin` for the johnpforte/Angstrom fork, separate from the Sites publishing workflow. Source changes can be pushed to the fork and proposed to upstream through pull requests. The Raspberry Pi should pull merged updates from the 40Labs repository.
 
 Never commit account tokens, passwords, `.env` files, or private runtime/provider data. GitHub transfers code; the future core will synchronize live application state.
+
+## Testing the weather-details branch
+
+This feature is isolated on `feature/weather-details`; the production Site and `main` are not updated by pushing this branch. See [Pi branch testing](docs/RASPBERRY_PI.md#testing-the-weather-details-branch).
+
+Weather regression checks use Node's built-in test runner (no packages to install):
+
+```bash
+node --test tests/weather.test.cjs
+```
+
+The tests cover timezone-specific solar times, missing optional values, zero values, stale/offline data, unit preferences, and day rollover. Node is only needed to run these development tests; the Pi frontend still runs through Python and Chromium.
