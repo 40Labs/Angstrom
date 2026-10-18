@@ -20,6 +20,6 @@ Use fine concentric circles, restrained orbital details, open line terminals, an
 
 ## Assets
 
-`dist/assets/40labs-emblem.png` and `dist/assets/40labs-wordmark.png` are unmodified copies of the user-supplied screenshots. They establish the direction and appear in the display header/footer. Replace them with original high-resolution or vector artwork when available, rather than tracing or inventing a new logo.
+`apps/display/public/assets/40labs-emblem.png` and `apps/display/public/assets/40labs-wordmark.png` are unmodified copies of the user-supplied screenshots. They establish the direction and appear in the display header/footer. Replace them with original high-resolution or vector artwork when available, rather than tracing or inventing a new logo.
 
 Keep this foundation consistent across future phone interfaces, display nodes, settings pages, and assistant visual states.
