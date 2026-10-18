@@ -2,7 +2,8 @@
 const $ = selector => document.querySelector(selector);
 const defaults = {format:'12',unit:'f',brightness:40,night:false};
 let prefs = {...defaults};
-try { const saved=JSON.parse(localStorage.getItem('angstrom.display.v1')||'{}'); prefs={...defaults,...saved}; } catch {}
+try { const saved=JSON.parse(localStorage.getItem('angstrom.display.v1')||'{}'); prefs={...defaults,...saved}; if(saved.formatRevision!==2){prefs.format='12';prefs.unit='f';} } catch {}
+prefs.formatRevision=2;
 if(!['12','24'].includes(prefs.format)) prefs.format='12';
 if(!['f','c'].includes(prefs.unit)) prefs.unit='f';
 prefs.brightness=Math.min(70,Math.max(20,Number(prefs.brightness)||40));
@@ -26,7 +27,7 @@ function renderAgenda(){
   entries.forEach(event=>{const button=document.createElement('button');button.className='event';button.innerHTML=`<span class="event-marker"></span><span><span class="event-time">${event.time}</span><span class="event-name" style="display:block">${event.title}</span><span class="event-meta">${event.meta}</span></span>`;button.addEventListener('click',()=>{$('#event-title').textContent=event.title;$('#event-time').textContent=`${d.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})} · ${event.time}`;$('#event-description').textContent=event.description;$('#event-dialog').showModal();});container.append(button);});
 }
 let dayKey='';
-function tick(){const now=new Date();const parts=new Intl.DateTimeFormat(undefined,{hour:'numeric',minute:'2-digit',hour12:prefs.format==='12'}).formatToParts(now);$('#clock').textContent=parts.filter(p=>['hour','minute','literal'].includes(p.type)).map(p=>p.value).join('').trim();$('#period').textContent=parts.find(p=>p.type==='dayPeriod')?.value||'';$('#date').textContent=now.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});$('#timezone').textContent=new Intl.DateTimeFormat(undefined,{timeZoneName:'short'}).formatToParts(now).find(p=>p.type==='timeZoneName')?.value||'LOCAL';$('#greeting').textContent=now.getHours()<5?'THE WORLD CAN WAIT':now.getHours()<12?'A LITTLE SPACE TO START YOUR DAY':now.getHours()<18?'RIGHT HERE, RIGHT NOW':'A MOMENT TO SLOW DOWN';const key=now.toDateString();if(key!==dayKey){dayKey=key;renderAgenda();}}
+function tick(){const now=new Date();const parts=new Intl.DateTimeFormat(undefined,{hour:'numeric',minute:'2-digit',hour12:prefs.format==='12'}).formatToParts(now);$('#clock').textContent=parts.filter(p=>['hour','minute','literal'].includes(p.type)).map(p=>p.value).join('').trim();$('#period').textContent=parts.find(p=>p.type==='dayPeriod')?.value||'';$('#date').textContent=now.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});$('#timezone').textContent=new Intl.DateTimeFormat(undefined,{timeZoneName:'short'}).formatToParts(now).find(p=>p.type==='timeZoneName')?.value||'LOCAL';const key=now.toDateString();if(key!==dayKey){dayKey=key;renderAgenda();}}
 function applyPreferences(){document.body.classList.toggle('night',!!prefs.night);document.documentElement.style.setProperty('--night-brightness',String(prefs.brightness/100));$('#night-button').setAttribute('aria-pressed',String(!!prefs.night));$('#night-button span').textContent=prefs.night?'Day mode':'Night mode';$('#footer-message').textContent=prefs.night?'Rest easy. Tap Day mode to brighten.':'Your day, at a glance.';window.AngstromWeather.setPreferences(prefs);tick();}
 $('#night-button').addEventListener('click',()=>{prefs.night=!prefs.night;save();applyPreferences();});
 $('#settings-button').addEventListener('click',()=>{$('#clock-format').value=prefs.format;$('#temperature-unit').value=prefs.unit;$('#brightness').value=prefs.brightness;$('#settings-dialog').showModal();});
@@ -36,4 +37,4 @@ document.querySelectorAll('dialog').forEach(dialog=>dialog.addEventListener('cli
 $('#previous-day').addEventListener('click',()=>{dayOffset--;renderAgenda();});$('#next-day').addEventListener('click',()=>{dayOffset++;renderAgenda();});$('#agenda-day').addEventListener('click',()=>{dayOffset=0;renderAgenda();});
 $('#fullscreen-button').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{$('#footer-message').textContent='Use your browser’s fullscreen option.';}});
 document.addEventListener('fullscreenchange',()=>{$('#fullscreen-button').setAttribute('aria-label',document.fullscreenElement?'Exit fullscreen':'Enter fullscreen');});
-applyPreferences();window.AngstromWeather.start();setInterval(tick,1000);
+save();applyPreferences();window.AngstromWeather.start();setInterval(tick,1000);
