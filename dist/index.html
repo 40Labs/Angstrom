@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101314"><meta name="description" content="Angstrom bedside display. Your time, weather, and day ahead, in a quiet interface.">
+  <title>Angstrom · Bedside</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
+</head>
+<body>
+<svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
+<symbol id="moon" viewBox="0 0 24 24"><path d="M20.5 14A9 9 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"/></symbol>
+<symbol id="cloud" viewBox="0 0 24 24"><path d="M6 18a4 4 0 0 1-.4-8A6 6 0 0 1 17 8a5 5 0 0 1 1 10Z"/></symbol>
+<symbol id="rain" viewBox="0 0 24 24"><path d="M6 14a4 4 0 0 1-.4-8A6 6 0 0 1 17 4a5 5 0 0 1 1 10M8 18l-1 3m6-3-1 3m6-3-1 3"/></symbol>
+<symbol id="settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="17" r="2"/></symbol>
+<symbol id="expand" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></symbol>
+<symbol id="arrow" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+</defs></svg>
+<main class="display">
+  <header class="topbar"><a class="brand" href="./" aria-label="Angstrom home"><span class="brand-mark">å</span> ANGSTROM<span class="brand-divider"></span><span class="room">BEDSIDE</span></a><div class="top-actions"><span class="preview"><i></i> DISPLAY PREVIEW</span><button class="icon-button" id="settings-button" aria-label="Display settings"><svg><use href="#settings"/></svg></button></div></header>
+  <section class="overview" aria-label="Clock and weather">
+    <div class="clock-panel"><p id="greeting" class="eyebrow">A MOMENT TO SLOW DOWN</p><div class="clock-line"><time id="clock">--:--</time><span id="period">PM</span></div><div class="date-line"><span id="date"></span><span class="date-dot">·</span><span id="timezone"></span></div></div>
+    <section class="weather-panel" aria-label="Sample weather"><div class="section-heading"><span class="eyebrow" id="location">WEATHER</span><span class="sample-tag">SAMPLE</span></div><div class="current-weather"><svg class="weather-hero"><use href="#sun"/></svg><div><span class="temperature" data-temp="64">64°</span><p>Mostly sunny</p></div></div><div class="weather-details"><span>H <b data-temp="67">67°</b><span class="low">L <b data-temp="48">48°</b></span></span><span>Feels like <b data-temp="62">62°</b></span></div><div class="forecast" id="forecast"></div></section>
+  </section>
+  <section class="agenda" aria-label="Calendar preview"><div class="agenda-top"><div class="agenda-title"><span class="eyebrow">ON THE HORIZON</span><span class="sample-tag">SAMPLE CALENDAR</span></div><div class="day-nav"><button id="previous-day" class="icon-button" aria-label="Previous day"><svg class="back"><use href="#arrow"/></svg></button><button id="agenda-day">Today</button><button id="next-day" class="icon-button" aria-label="Next day"><svg><use href="#arrow"/></svg></button></div></div><div id="events" class="events"></div></section>
+  <footer><div class="footer-note"><span class="status-dot"></span><span id="footer-message">Your day, at a glance.</span></div><div class="footer-actions"><button id="night-button" aria-pressed="false"><svg><use href="#moon"/></svg><span>Night mode</span></button><button id="fullscreen-button" aria-label="Enter fullscreen"><svg><use href="#expand"/></svg></button></div></footer>
+</main>
+<dialog id="settings-dialog"><form id="settings-form"><div class="dialog-heading"><div><p class="eyebrow">MAKE YOURSELF AT HOME</p><h1>Display settings</h1></div><button type="button" class="close" data-close aria-label="Close settings">×</button></div><label>Clock format<select id="clock-format"><option value="12">12 hour</option><option value="24">24 hour</option></select></label><label>Temperature<select id="temperature-unit"><option value="f">Fahrenheit · °F</option><option value="c">Celsius · °C</option></select></label><label>Night mode brightness<input id="brightness" type="range" min="20" max="70" step="5"><span class="help">Visual dimming only. Hardware backlight control comes with Pi setup.</span></label><div class="integration-note"><span class="status-dot"></span><div><strong>A first look at Angstrom</strong><p>The clock uses this device’s local time. Weather and calendar are sample data; no accounts are connected yet.</p></div></div><button class="primary" type="submit">Save preferences</button></form></dialog>
+<dialog id="event-dialog"><div class="dialog-heading"><p class="eyebrow">SAMPLE CALENDAR EVENT</p><button class="close" data-close aria-label="Close event">×</button></div><h1 id="event-title"></h1><p id="event-time"></p><p id="event-description" class="event-description"></p><button class="primary" data-close>Back to your day</button></dialog>
+</body></html>
