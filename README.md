@@ -1,6 +1,6 @@
 # Angstrom
 
-A 40Labs personal assistant platform, beginning with a bedside display on a Raspberry Pi 5 and a 7-inch 1024 × 600 touchscreen.
+An open-source 40Labs smart lab and home automation assistant platform, beginning with a bedside display on a Raspberry Pi 5 and a 7-inch 1024 × 600 touchscreen.
 
 ## Repository structure
 
@@ -51,6 +51,6 @@ This copies frontend source into generated `dist/`, matching `.openai/hosting.js
 
 Repository: https://github.com/40Labs/Angstrom
 
-The authoring checkout uses a `github` remote, separate from the Sites publishing workflow. Initial source publication is pending repository access and confirmation of the remote branch. Configuring a remote alone does not upload code.
+The authoring checkout uses `upstream` for 40Labs/Angstrom and `origin` for the johnpforte/Angstrom fork, separate from the Sites publishing workflow. Source changes can be pushed to the fork and proposed to upstream through pull requests. The Raspberry Pi should pull merged updates from the 40Labs repository.
 
 Never commit account tokens, passwords, `.env` files, or private runtime/provider data. GitHub transfers code; the future core will synchronize live application state.
