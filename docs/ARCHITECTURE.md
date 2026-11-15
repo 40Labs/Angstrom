@@ -4,7 +4,7 @@ The bedside display is one frontend for a future shared Angstrom core. Initially
 
 ## Implemented today
 
-`apps/display/public/` contains the frontend, direct public Open-Meteo weather adapter, browser-local preferences, and cache. Calendar events are samples. No core, node agent, or multi-room synchronization is implemented yet.
+`apps/display/public/` contains the frontend, direct public Open-Meteo weather adapter, browser-local preferences, and cache. Calendar events are samples. The `agents/node/` package adds configurable local microphone capture, but no background node service, core, or multi-room synchronization is implemented yet. See MICROPHONES.md for its hardware-independent audio contract.
 
 ## Planned components
 
@@ -13,7 +13,7 @@ The bedside display is one frontend for a future shared Angstrom core. Initially
 - Display: present state and submit user requests, retaining only temporary caches and local presentation settings.
 - Node agent: stable node ID and room, local microphone/speaker, screen control, and device health.
 
-Add `services/core/`, `agents/node/`, and shared API contracts when implementation begins. A phone can be a frontend without a hardware agent; a microphone node can exist without a display.
+The initial `agents/node/` tooling exists; add `services/core/` and shared API contracts when those implementations begin. A phone can be a frontend without a hardware agent; a microphone node can exist without a display.
 
 ## Synchronization contract
 

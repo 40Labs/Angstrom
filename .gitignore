@@ -237,3 +237,9 @@ data/
 
 # Generated static hosting artifact
 /dist/
+
+# Local node configuration, recordings, and scratch files
+/config/*.local.json
+*.wav
+*.pcm
+/work/

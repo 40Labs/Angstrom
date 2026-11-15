@@ -6,6 +6,8 @@ An open-source 40Labs smart lab and home automation assistant platform, beginnin
 
 ```text
 Angstrom/
+├── agents/node/            # Configurable local microphone capture tooling
+├── config/node.example.json # Per-node configuration example
 ├── apps/display/public/    # Frontend HTML, CSS, JavaScript, and logo assets
 ├── docs/
 │   ├── ARCHITECTURE.md     # Current and planned core/node structure
@@ -28,6 +30,10 @@ python3 -m http.server 8080 --bind 127.0.0.1 --directory apps/display/public
 
 Open http://127.0.0.1:8080 in your browser. No frontend dependencies or build are needed for local development.
 
+## Microphone setup
+
+See [microphone setup](docs/MICROPHONES.md) to list inputs, configure the bedroom microphone, record a local test clip, and replace microphones without changing assistant code. Requires Python 3 and `alsa-utils` on Raspberry Pi OS. No microphone is opened until an explicit capture command runs.
+
 ## Current functionality
 
 - Live device-local clock and date, defaulting to AM/PM and Fahrenheit.
@@ -35,7 +41,7 @@ Open http://127.0.0.1:8080 in your browser. No frontend dependencies or build ar
 - Sample calendar layout with day navigation and event details.
 - Night-mode visual dimming, fullscreen control, responsive layout, and saved local preferences.
 
-Google Calendar access in the chat is separate from this app. The display does not yet have an authenticated calendar integration. Core services, node agents, multi-room synchronization, voice, automatic boot, and physical backlight control remain planned.
+Google Calendar access in the chat is separate from this app. The display does not yet have an authenticated calendar integration. Core services, node registration, multi-room synchronization, voice recognition, automatic boot, and physical backlight control remain planned. Initial node audio capture tooling is available; it is not a running node service.
 
 See [architecture](docs/ARCHITECTURE.md), [branding](docs/BRAND.md), and [Pi setup](docs/RASPBERRY_PI.md).
 

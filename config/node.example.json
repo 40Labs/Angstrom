@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "node_id": "bedroom-01",
+  "room": "bedroom",
+  "audio": {
+    "backend": "alsa",
+    "device": "plughw:CARD=REPLACE_WITH_YOUR_CARD_ID,DEV=0"
+  }
+}
